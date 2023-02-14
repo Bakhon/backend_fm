@@ -1,0 +1,48 @@
+image: atlassian/default-image:2
+
+definitions:
+  services:
+    docker:
+      memory: 2048
+
+pipelines:
+  default:
+    - step:
+        services:
+          - docker
+        script:
+          - export IMAGE_NAME=nlplay/fm_backend:$BITBUCKET_COMMIT
+          - docker build -f dev.Dockerfile -t $IMAGE_NAME .
+  branches:
+    dev:
+      - step:
+          name: 'Docker Build'
+          services:
+            - docker
+          script:
+            - export IMAGE_NAME=nlplay/fm_backend:$BITBUCKET_COMMIT
+            - docker build -f dev.Dockerfile -t $IMAGE_NAME .
+            - docker login --username $DOCKER_HUB_USERNAME --password $DOCKER_HUB_PASSWORD
+            - docker push $IMAGE_NAME
+      - step:
+          name: 'Deploy to Kubernetes'
+          image: atlassian/pipelines-kubectl
+          script:
+            - echo $KUBECONFIGDEV | base64 -d > kubeconfig.yml
+            - kubectl --kubeconfig=kubeconfig.yml --namespace=fmbidev set image deployment/backend backend=nlplay/fm_backend:$BITBUCKET_COMMIT
+    master:
+        - step:
+            name: 'Docker Build'
+            services:
+              - docker
+            script:
+              - export IMAGE_NAME=nlplay/fm_backend:prod-$BITBUCKET_COMMIT
+              - docker build -f prod.Dockerfile -t $IMAGE_NAME .
+              - docker login --username $DOCKER_HUB_USERNAME --password $DOCKER_HUB_PASSWORD
+              - docker push $IMAGE_NAME
+        - step:
+            name: 'Deploy to Kubernetes'
+            image: atlassian/pipelines-kubectl
+            script:
+              - echo $KUBECONFIGDEV | base64 -d > kubeconfig.yml
+              - kubectl --kubeconfig=kubeconfig.yml --namespace=fmbidev set image deployment/backend backend=nlplay/fm_backend:prod-$BITBUCKET_COMMIT

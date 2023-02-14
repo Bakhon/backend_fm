@@ -1,0 +1,3774 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "Family Manager BI Group API",
+        "version": "1.1.0"
+    },
+    "paths": {
+        "/api/cases": {
+            "get": {
+                "tags": [
+                    "Cases"
+                ],
+                "description": "Get list of cases with search",
+                "operationId": "App\\Http\\Controllers\\CaseController::index",
+                "parameters": [
+                    {
+                        "name": "search",
+                        "in": "query",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "category_id",
+                        "in": "query",
+                        "required": false,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    },
+                    {
+                        "name": "service_id",
+                        "in": "query",
+                        "required": false,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    },
+                    {
+                        "name": "status_id",
+                        "in": "query",
+                        "required": false,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    },
+                    {
+                        "name": "date_from",
+                        "in": "query",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "date_to",
+                        "in": "query",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "order_by",
+                        "in": "query",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "direction",
+                        "in": "query",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "limit",
+                        "in": "query",
+                        "description": "List limit",
+                        "required": false,
+                        "schema": {
+                            "type": "integer"
+                        },
+                        "example": 10
+                    },
+                    {
+                        "name": "offset",
+                        "in": "query",
+                        "description": "Offset",
+                        "required": false,
+                        "schema": {
+                            "type": "integer"
+                        },
+                        "example": 0
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Return case list",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/CaseSearchResource"
+                                }
+                            }
+                        }
+                    },
+                    "403": {
+                        "description": "USER_HAS_NO_PERMISSION"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            },
+            "post": {
+                "tags": [
+                    "Cases"
+                ],
+                "operationId": "Cases Store",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/CaseRequest"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Return bool"
+                    },
+                    "403": {
+                        "description": "USER_HAS_NO_PERMISSION"
+                    },
+                    "500": {
+                        "description": "INTERNAL_SERVER_ERROR"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/cases/{id}": {
+            "get": {
+                "tags": [
+                    "Cases"
+                ],
+                "description": "Get single case",
+                "operationId": "App\\Http\\Controllers\\CaseController::show",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Case id",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        },
+                        "example": 1
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Return category data",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/CaseSearchResource"
+                                }
+                            }
+                        }
+                    },
+                    "403": {
+                        "description": "USER_HAS_NO_PERMISSION"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            },
+            "put": {
+                "tags": [
+                    "Cases"
+                ],
+                "description": "Update case",
+                "operationId": "App\\Http\\Controllers\\CaseController::update",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Case id",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        },
+                        "example": 1
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/CaseRequest"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Cases sucsessfully updates",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/CaseUpdateRequest"
+                                }
+                            }
+                        }
+                    },
+                    "403": {
+                        "description": "USER_HAS_NO_PERMISSION"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            },
+            "delete": {
+                "tags": [
+                    "Cases"
+                ],
+                "description": "Delete case",
+                "operationId": "App\\Http\\Controllers\\CaseController::destroy",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Case id",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        },
+                        "example": 1
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Case successfully deleted"
+                    },
+                    "403": {
+                        "description": "USER_HAS_NO_PERMISSION"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/cases/restore/{id}": {
+            "put": {
+                "tags": [
+                    "Cases"
+                ],
+                "description": "Restore case",
+                "operationId": "App\\Http\\Controllers\\CaseController::restore",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Case id",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        },
+                        "example": 1
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Cases sucsessfully restore"
+                    },
+                    "403": {
+                        "description": "USER_HAS_NO_PERMISSION"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/cases/guid/{guid}": {
+            "get": {
+                "tags": [
+                    "Cases"
+                ],
+                "description": "Get case by GUID",
+                "operationId": "App\\Http\\Controllers\\CaseController::getByGUID",
+                "parameters": [
+                    {
+                        "name": "guid",
+                        "in": "path",
+                        "description": "Case GUID",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Return case data",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/CaseRequest"
+                                }
+                            }
+                        }
+                    },
+                    "403": {
+                        "description": "USER_HAS_NO_PERMISSION"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/cases/init": {
+            "post": {
+                "tags": [
+                    "Cases"
+                ],
+                "operationId": "App\\Http\\Controllers\\CaseController::init",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/CaseInitRequest"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Case successfully created",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/CaseSearchResource"
+                                }
+                            }
+                        }
+                    },
+                    "403": {
+                        "description": "USER_HAS_NO_PERMISSION"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/cases/check": {
+            "post": {
+                "tags": [
+                    "Cases"
+                ],
+                "operationId": "Cases check",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/CaseRequest"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Case successfully check",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/CaseCheckResource"
+                                }
+                            }
+                        }
+                    },
+                    "403": {
+                        "description": "USER_HAS_NO_PERMISSION"
+                    },
+                    "500": {
+                        "description": "INTERNAL_SERVER_ERROR"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/case-versions": {
+            "get": {
+                "tags": [
+                    "CaseVersions"
+                ],
+                "description": "Get list of cases with search",
+                "operationId": "App\\Http\\Controllers\\CaseVersionController::index",
+                "parameters": [
+                    {
+                        "name": "case_hash",
+                        "in": "query",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "version",
+                        "in": "query",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Return sections list",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/CaseVersionResource"
+                                }
+                            }
+                        }
+                    },
+                    "403": {
+                        "description": "USER_HAS_NO_PERMISSION"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/case-versions/{hash}": {
+            "put": {
+                "tags": [
+                    "CaseVersions"
+                ],
+                "description": "Update status CaseVersion",
+                "operationId": "App\\Http\\Controllers\\CaseVersionController::update",
+                "parameters": [
+                    {
+                        "name": "hash",
+                        "in": "path",
+                        "description": "CaseVersion hash",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/CaseVersionStatusRequest"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Category sucsessfully change"
+                    },
+                    "403": {
+                        "description": "USER_HAS_NO_PERMISSION"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/calalog/link": {
+            "post": {
+                "tags": [
+                    "Catalog"
+                ],
+                "operationId": "App\\Http\\Controllers\\CatalogController::link",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/CatalogLinkRequest"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Return bool"
+                    },
+                    "403": {
+                        "description": "USER_HAS_NO_PERMISSION"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/catalog/tree": {
+            "get": {
+                "tags": [
+                    "Catalog"
+                ],
+                "description": "Get catalog tree",
+                "operationId": "App\\Http\\Controllers\\CatalogController::getTree",
+                "responses": {
+                    "200": {
+                        "description": "Return catalog list",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "properties": {
+                                            "section": {
+                                                "$ref": "#/components/schemas/SectionRequest"
+                                            },
+                                            "categories": {
+                                                "$ref": "#/components/schemas/CategoryRequest"
+                                            }
+                                        },
+                                        "type": "object"
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "403": {
+                        "description": "USER_HAS_NO_PERMISSION"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/catalog/categories": {
+            "get": {
+                "tags": [
+                    "Catalog"
+                ],
+                "description": "Get catalog categories",
+                "operationId": "App\\Http\\Controllers\\CatalogController::categories",
+                "parameters": [
+                    {
+                        "name": "search",
+                        "in": "query",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "limit",
+                        "in": "query",
+                        "description": "List limit",
+                        "required": false,
+                        "schema": {
+                            "type": "integer"
+                        },
+                        "example": 10
+                    },
+                    {
+                        "name": "offset",
+                        "in": "query",
+                        "description": "Offset",
+                        "required": false,
+                        "schema": {
+                            "type": "integer"
+                        },
+                        "example": 0
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Return catalog list",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "properties": {
+                                            "category": {
+                                                "$ref": "#/components/schemas/CategoryRequest"
+                                            },
+                                            "section": {
+                                                "$ref": "#/components/schemas/SectionRequest"
+                                            }
+                                        },
+                                        "type": "object"
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "403": {
+                        "description": "USER_HAS_NO_PERMISSION"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/categories": {
+            "get": {
+                "tags": [
+                    "Categories"
+                ],
+                "description": "Get list of categories with search",
+                "operationId": "App\\Http\\Controllers\\CategoryController::index",
+                "parameters": [
+                    {
+                        "name": "search",
+                        "in": "query",
+                        "description": "Search query",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "limit",
+                        "in": "query",
+                        "description": "List limit",
+                        "required": false,
+                        "schema": {
+                            "type": "integer"
+                        },
+                        "example": "10"
+                    },
+                    {
+                        "name": "offset",
+                        "in": "query",
+                        "description": "Offset",
+                        "required": false,
+                        "schema": {
+                            "type": "integer"
+                        },
+                        "example": "0"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Return categories list",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/CategoryRequest"
+                                }
+                            }
+                        }
+                    },
+                    "403": {
+                        "description": "USER_HAS_NO_PERMISSION"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            },
+            "post": {
+                "tags": [
+                    "Categories"
+                ],
+                "operationId": "App\\Http\\Controllers\\CategoryController::store",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/CategoryRequest"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Category successfully created"
+                    },
+                    "403": {
+                        "description": "USER_HAS_NO_PERMISSION"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/categories/{id}": {
+            "get": {
+                "tags": [
+                    "Categories"
+                ],
+                "description": "Get single category",
+                "operationId": "App\\Http\\Controllers\\CategoryController::show",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Category id",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        },
+                        "example": 1
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Return category data",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/CategoryRequest"
+                                }
+                            }
+                        }
+                    },
+                    "403": {
+                        "description": "USER_HAS_NO_PERMISSION"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            },
+            "put": {
+                "tags": [
+                    "Categories"
+                ],
+                "description": "Update category",
+                "operationId": "App\\Http\\Controllers\\CategoryController::update",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Category id",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        },
+                        "example": 1
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/CategoryRequest"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Category sucsessfully updated"
+                    },
+                    "403": {
+                        "description": "USER_HAS_NO_PERMISSION"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            },
+            "delete": {
+                "tags": [
+                    "Categories"
+                ],
+                "description": "Delete category",
+                "operationId": "App\\Http\\Controllers\\CategoryController::destroy",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Category id",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        },
+                        "example": 1
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Category successfully deleted"
+                    },
+                    "403": {
+                        "description": "USER_HAS_NO_PERMISSION"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/family-compositions": {
+            "get": {
+                "tags": [
+                    "Family Compositions"
+                ],
+                "description": "Get list of family compositions with search",
+                "operationId": "App\\Http\\Controllers\\FamilyCompositionController::index",
+                "parameters": [
+                    {
+                        "name": "search",
+                        "in": "query",
+                        "description": "Search string",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
+                        },
+                        "example": "семейств"
+                    },
+                    {
+                        "name": "limit",
+                        "in": "query",
+                        "description": "List limit",
+                        "required": false,
+                        "schema": {
+                            "type": "integer"
+                        },
+                        "example": "12"
+                    },
+                    {
+                        "name": "offset",
+                        "in": "query",
+                        "description": "Offset",
+                        "required": false,
+                        "schema": {
+                            "type": "integer"
+                        },
+                        "example": "0"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Return compositions list",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/FamilyCompositionRequest"
+                                }
+                            }
+                        }
+                    },
+                    "403": {
+                        "description": "USER_HAS_NO_PERMISSION"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            },
+            "post": {
+                "tags": [
+                    "Family Compositions"
+                ],
+                "operationId": "App\\Http\\Controllers\\FamilyCompositionController::store",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/FamilyCompositionRequest"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Return bool"
+                    },
+                    "403": {
+                        "description": "USER_HAS_NO_PERMISSION"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/family-compositions/{id}": {
+            "get": {
+                "tags": [
+                    "Family Compositions"
+                ],
+                "description": "Get single family composition",
+                "operationId": "App\\Http\\Controllers\\FamilyCompositionController::show",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Composition id",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        },
+                        "example": 1
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Return family composition data",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/FamilyCompositionRequest"
+                                }
+                            }
+                        }
+                    },
+                    "403": {
+                        "description": "USER_HAS_NO_PERMISSION"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            },
+            "put": {
+                "tags": [
+                    "Family Compositions"
+                ],
+                "description": "Update family composition",
+                "operationId": "App\\Http\\Controllers\\FamilyCompositionController::update",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Composition id",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        },
+                        "example": 1
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/FamilyCompositionRequest"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Return updated family composition"
+                    },
+                    "403": {
+                        "description": "USER_HAS_NO_PERMISSION"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            },
+            "delete": {
+                "tags": [
+                    "Family Compositions"
+                ],
+                "description": "Delete family composition",
+                "operationId": "App\\Http\\Controllers\\FamilyCompositionController::destroy",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Composition id",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        },
+                        "example": 1
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Family composition Successfully deleted"
+                    },
+                    "403": {
+                        "description": "USER_HAS_NO_PERMISSION"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/files/upload": {
+            "post": {
+                "tags": [
+                    "Files"
+                ],
+                "description": "Upload file",
+                "operationId": "App\\Http\\Controllers\\FileController::upload",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "multipart/form-data": {
+                            "schema": {
+                                "properties": {
+                                    "file": {
+                                        "type": "file"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "File successfully upload"
+                    },
+                    "403": {
+                        "description": "USER_HAS_NO_PERMISSION"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/files/{caseHash}/{fileHash}": {
+            "get": {
+                "tags": [
+                    "Files"
+                ],
+                "description": "Get file by hash and case hash",
+                "operationId": "App\\Http\\Controllers\\FileController::get",
+                "parameters": [
+                    {
+                        "name": "caseHash",
+                        "in": "path",
+                        "description": "Case hash",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "fileHash",
+                        "in": "path",
+                        "description": "File hash",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Return file"
+                    },
+                    "403": {
+                        "description": "USER_HAS_NO_PERMISSION"
+                    }
+                }
+            }
+        },
+        "/api/files/case/upload": {
+            "post": {
+                "tags": [
+                    "Files"
+                ],
+                "description": "Upload file for case",
+                "operationId": "App\\Http\\Controllers\\FileController::caseFileUpload",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "multipart/form-data": {
+                            "schema": {
+                                "properties": {
+                                    "file": {
+                                        "type": "file"
+                                    },
+                                    "case_hash": {
+                                        "type": "string"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "File successfully upload"
+                    },
+                    "403": {
+                        "description": "USER_HAS_NO_PERMISSION"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/reports": {
+            "get": {
+                "tags": [
+                    "Reports"
+                ],
+                "description": "Get reports  list",
+                "operationId": "App\\Http\\Controllers\\ReportController::index",
+                "parameters": [
+                    {
+                        "name": "search",
+                        "in": "query",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "status_id",
+                        "in": "query",
+                        "required": false,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    },
+                    {
+                        "name": "date_created_from",
+                        "in": "query",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "date_created_to",
+                        "in": "query",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "user_hash",
+                        "in": "query",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "order_by",
+                        "in": "query",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "direction",
+                        "in": "query",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "limit",
+                        "in": "query",
+                        "description": "List limit",
+                        "required": false,
+                        "schema": {
+                            "type": "integer"
+                        },
+                        "example": 10
+                    },
+                    {
+                        "name": "offset",
+                        "in": "query",
+                        "description": "Offset",
+                        "required": false,
+                        "schema": {
+                            "type": "integer"
+                        },
+                        "example": 0
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Return reports list"
+                    },
+                    "403": {
+                        "description": "USER_HAS_NO_PERMISSION"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/reports/init": {
+            "post": {
+                "tags": [
+                    "Reports"
+                ],
+                "description": "Create report",
+                "operationId": "App\\Http\\Controllers\\ReportController::init",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/ReportInitRequest"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Return report resource",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ReportResource"
+                                }
+                            }
+                        }
+                    },
+                    "403": {
+                        "description": "USER_HAS_NO_PERMISSION"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/reports/export": {
+            "get": {
+                "tags": [
+                    "Reports"
+                ],
+                "description": "Export reports",
+                "operationId": "App\\Http\\Controllers\\ReportController::export",
+                "parameters": [
+                    {
+                        "name": "search",
+                        "in": "query",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "order_by",
+                        "in": "query",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "direction",
+                        "in": "query",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Return reports excel"
+                    },
+                    "403": {
+                        "description": "USER_HAS_NO_PERMISSION"
+                    }
+                }
+            }
+        },
+        "/api/reports/export/{id}": {
+            "get": {
+                "tags": [
+                    "Reports"
+                ],
+                "description": "Export report in xlsx",
+                "operationId": "App\\Http\\Controllers\\ReportController::exportReport",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Report id",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        },
+                        "example": 1
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Return report excel"
+                    },
+                    "403": {
+                        "description": "USER_HAS_NO_PERMISSION"
+                    }
+                }
+            }
+        },
+        "/api/reports/export-pdf/{id}": {
+            "get": {
+                "tags": [
+                    "Reports"
+                ],
+                "description": "Export report in pdf",
+                "operationId": "App\\Http\\Controllers\\ReportController::exportPdfReport",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Report id",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        },
+                        "example": 1
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Return report excel"
+                    },
+                    "403": {
+                        "description": "USER_HAS_NO_PERMISSION"
+                    }
+                }
+            }
+        },
+        "/api/reports/{id}": {
+            "get": {
+                "tags": [
+                    "Reports"
+                ],
+                "description": "Get single report",
+                "operationId": "App\\Http\\Controllers\\ReportController::show",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Report id",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        },
+                        "example": 1
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Return report resource",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ReportResource"
+                                }
+                            }
+                        }
+                    },
+                    "403": {
+                        "description": "USER_HAS_NO_PERMISSION"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            },
+            "delete": {
+                "tags": [
+                    "Reports"
+                ],
+                "description": "Delete report",
+                "operationId": "App\\Http\\Controllers\\ReportController::destroy",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Report id",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        },
+                        "example": 1
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Report successfully deleted"
+                    },
+                    "403": {
+                        "description": "USER_HAS_NO_PERMISSION"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/reports/authors": {
+            "get": {
+                "tags": [
+                    "Reports"
+                ],
+                "description": "Reports authors",
+                "operationId": "App\\Http\\Controllers\\ReportController::authors",
+                "responses": {
+                    "200": {
+                        "description": "Return reports authors"
+                    },
+                    "403": {
+                        "description": "USER_HAS_NO_PERMISSION"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/sections": {
+            "get": {
+                "tags": [
+                    "Sections"
+                ],
+                "description": "Get list of sections with search",
+                "operationId": "App\\Http\\Controllers\\SectionController::index",
+                "parameters": [
+                    {
+                        "name": "search",
+                        "in": "query",
+                        "description": "Search string",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
+                        },
+                        "example": "section"
+                    },
+                    {
+                        "name": "limit",
+                        "in": "query",
+                        "description": "List limit",
+                        "required": false,
+                        "schema": {
+                            "type": "integer"
+                        },
+                        "example": "12"
+                    },
+                    {
+                        "name": "offset",
+                        "in": "query",
+                        "description": "Offset",
+                        "required": false,
+                        "schema": {
+                            "type": "integer"
+                        },
+                        "example": "0"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Return sections list",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/SectionRequest"
+                                }
+                            }
+                        }
+                    },
+                    "403": {
+                        "description": "USER_HAS_NO_PERMISSION"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            },
+            "post": {
+                "tags": [
+                    "Sections"
+                ],
+                "description": "Create section",
+                "operationId": "App\\Http\\Controllers\\SectionController::store",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/SectionRequest"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Section successfully created"
+                    },
+                    "403": {
+                        "description": "USER_HAS_NO_PERMISSION"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/sections/{id}": {
+            "get": {
+                "tags": [
+                    "Sections"
+                ],
+                "description": "Get single section",
+                "operationId": "App\\Http\\Controllers\\SectionController::show",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Section id",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        },
+                        "example": 1
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Return section data",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/SectionRequest"
+                                }
+                            }
+                        }
+                    },
+                    "403": {
+                        "description": "USER_HAS_NO_PERMISSION"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            },
+            "put": {
+                "tags": [
+                    "Sections"
+                ],
+                "description": "Update section",
+                "operationId": "App\\Http\\Controllers\\SectionController::update",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Section id",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        },
+                        "example": 1
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/SectionRequest"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Return updated section"
+                    },
+                    "403": {
+                        "description": "USER_HAS_NO_PERMISSION"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            },
+            "delete": {
+                "tags": [
+                    "Sections"
+                ],
+                "description": "Delete section",
+                "operationId": "App\\Http\\Controllers\\SectionController::destroy",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Section id",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        },
+                        "example": 1
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Section successfully deleted"
+                    },
+                    "403": {
+                        "description": "USER_HAS_NO_PERMISSION"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/sections/{id}/categories": {
+            "get": {
+                "tags": [
+                    "Sections"
+                ],
+                "description": "Get single section with related categories",
+                "operationId": "App\\Http\\Controllers\\SectionController::withCategories",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Section id",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        },
+                        "example": 1
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Return section data",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "section": {
+                                            "type": "array",
+                                            "items": {
+                                                "properties": {
+                                                    "creator_id": {
+                                                        "description": "user id",
+                                                        "type": "integer",
+                                                        "example": 5
+                                                    },
+                                                    "name": {
+                                                        "description": "Full section name",
+                                                        "type": "string",
+                                                        "example": "Конструкции железобетонные"
+                                                    },
+                                                    "short_name": {
+                                                        "description": "Short section name",
+                                                        "type": "string",
+                                                        "example": "КЖ"
+                                                    },
+                                                    "parent_id": {
+                                                        "description": "Parent section_id",
+                                                        "type": "integer",
+                                                        "default": null,
+                                                        "example": 1
+                                                    },
+                                                    "order": {
+                                                        "description": "Order index",
+                                                        "type": "integer",
+                                                        "default": 0,
+                                                        "example": 0
+                                                    }
+                                                },
+                                                "type": "object"
+                                            }
+                                        },
+                                        "categories": {
+                                            "type": "array",
+                                            "items": {
+                                                "properties": {
+                                                    "creator_id": {
+                                                        "description": "user id",
+                                                        "type": "integer",
+                                                        "example": 5
+                                                    },
+                                                    "full_name": {
+                                                        "description": "Full section name",
+                                                        "type": "string",
+                                                        "example": "Арматура"
+                                                    },
+                                                    "name": {
+                                                        "description": "Section name",
+                                                        "type": "string",
+                                                        "example": "Арматура"
+                                                    },
+                                                    "version": {
+                                                        "description": "Version",
+                                                        "type": "integer",
+                                                        "example": "2"
+                                                    },
+                                                    "parent_id": {
+                                                        "description": "Parent category id",
+                                                        "type": "integer",
+                                                        "default": null,
+                                                        "example": null
+                                                    },
+                                                    "system": {
+                                                        "type": "integer",
+                                                        "default": null,
+                                                        "example": null
+                                                    },
+                                                    "key": {
+                                                        "type": "integer",
+                                                        "default": null,
+                                                        "example": null
+                                                    },
+                                                    "_ltr": {
+                                                        "description": "Left tree index",
+                                                        "type": "integer",
+                                                        "default": 0,
+                                                        "example": 0
+                                                    },
+                                                    "_rgt": {
+                                                        "description": "Right tree index",
+                                                        "type": "integer",
+                                                        "default": 0,
+                                                        "example": 0
+                                                    }
+                                                },
+                                                "type": "object"
+                                            }
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "403": {
+                        "description": "USER_HAS_NO_PERMISSION"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/tasks": {
+            "get": {
+                "tags": [
+                    "Tasks"
+                ],
+                "description": "Get list tasks",
+                "operationId": "App\\Http\\Controllers\\TaskController::index",
+                "parameters": [
+                    {
+                        "name": "search",
+                        "in": "query",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "status_id",
+                        "in": "query",
+                        "required": false,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    },
+                    {
+                        "name": "date_created_from",
+                        "in": "query",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "date_created_to",
+                        "in": "query",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "date_updated_from",
+                        "in": "query",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "date_updated_to",
+                        "in": "query",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "user_hash",
+                        "in": "query",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "order_by",
+                        "in": "query",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "direction",
+                        "in": "query",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "limit",
+                        "in": "query",
+                        "description": "List limit",
+                        "required": false,
+                        "schema": {
+                            "type": "integer"
+                        },
+                        "example": 10
+                    },
+                    {
+                        "name": "offset",
+                        "in": "query",
+                        "description": "Offset",
+                        "required": false,
+                        "schema": {
+                            "type": "integer"
+                        },
+                        "example": 0
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Return sections list",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/TaskResource"
+                                }
+                            }
+                        }
+                    },
+                    "403": {
+                        "description": "USER_HAS_NO_PERMISSION"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            },
+            "post": {
+                "tags": [
+                    "Tasks"
+                ],
+                "operationId": "App\\Http\\Controllers\\TaskController::store",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/TaskRequest"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Return task data",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/TaskRequest"
+                                }
+                            }
+                        }
+                    },
+                    "403": {
+                        "description": "USER_HAS_NO_PERMISSION"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/tasks/{id}": {
+            "get": {
+                "tags": [
+                    "Tasks"
+                ],
+                "description": "Get single task",
+                "operationId": "App\\Http\\Controllers\\TaskController::show",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Task id",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        },
+                        "example": 1
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Return task data",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/TaskRequest"
+                                }
+                            }
+                        }
+                    },
+                    "403": {
+                        "description": "USER_HAS_NO_PERMISSION"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            },
+            "put": {
+                "tags": [
+                    "Tasks"
+                ],
+                "description": "Update task",
+                "operationId": "App\\Http\\Controllers\\TaskController::update",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Task id",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/TaskUpdateRequest"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Return Task model"
+                    },
+                    "403": {
+                        "description": "USER_HAS_NO_PERMISSION"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/tasks/export": {
+            "get": {
+                "tags": [
+                    "Tasks"
+                ],
+                "description": "Export tasks",
+                "operationId": "App\\Http\\Controllers\\TaskController::export",
+                "parameters": [
+                    {
+                        "name": "search",
+                        "in": "query",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "status_id",
+                        "in": "query",
+                        "required": false,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    },
+                    {
+                        "name": "date_created_from",
+                        "in": "query",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "date_created_to",
+                        "in": "query",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "date_updated_from",
+                        "in": "query",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "date_updated_to",
+                        "in": "query",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "user_hash",
+                        "in": "query",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "order_by",
+                        "in": "query",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "direction",
+                        "in": "query",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Return tasks excel"
+                    },
+                    "403": {
+                        "description": "USER_HAS_NO_PERMISSION"
+                    }
+                }
+            }
+        },
+        "/api/tasks/creators": {
+            "get": {
+                "tags": [
+                    "Tasks"
+                ],
+                "description": "Tasks creators",
+                "operationId": "App\\Http\\Controllers\\TaskController::creators",
+                "responses": {
+                    "200": {
+                        "description": "Return tasks creators"
+                    },
+                    "403": {
+                        "description": "USER_HAS_NO_PERMISSION"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/tasks/executors": {
+            "get": {
+                "tags": [
+                    "Tasks"
+                ],
+                "description": "Tasks executors",
+                "operationId": "App\\Http\\Controllers\\TaskController::executors",
+                "responses": {
+                    "200": {
+                        "description": "Return tasks executors"
+                    },
+                    "403": {
+                        "description": "USER_HAS_NO_PERMISSION"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/task-types": {
+            "get": {
+                "tags": [
+                    "Tasks Types"
+                ],
+                "description": "Get list of task's types with search",
+                "operationId": "App\\Http\\Controllers\\TaskTypeController::index",
+                "parameters": [
+                    {
+                        "name": "search",
+                        "in": "query",
+                        "description": "Search string",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "limit",
+                        "in": "query",
+                        "description": "list limit",
+                        "required": false,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Return sections list",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/TaskTypeRequest"
+                                }
+                            }
+                        }
+                    },
+                    "403": {
+                        "description": "USER_HAS_NO_PERMISSION"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            },
+            "post": {
+                "tags": [
+                    "Tasks Types"
+                ],
+                "description": "",
+                "operationId": "App\\Http\\Controllers\\TaskTypeController::store",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/TaskTypeRequest"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Task type data",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/TaskTypeRequest"
+                                }
+                            }
+                        }
+                    },
+                    "403": {
+                        "description": "USER_HAS_NO_PERMISSION"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/task-types/{id}": {
+            "get": {
+                "tags": [
+                    "Tasks Types"
+                ],
+                "description": "Get single task type",
+                "operationId": "App\\Http\\Controllers\\TaskTypeController::show",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Task id",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        },
+                        "example": 1
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Return task type data",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/TaskTypeRequest"
+                                }
+                            }
+                        }
+                    },
+                    "403": {
+                        "description": "USER_HAS_NO_PERMISSION"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            },
+            "put": {
+                "tags": [
+                    "Tasks Types"
+                ],
+                "description": "Update task type",
+                "operationId": "App\\Http\\Controllers\\TaskTypeController::update",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Task id",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        },
+                        "example": 1
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/TaskTypeRequest"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Return updated task type",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/TaskTypeRequest"
+                                }
+                            }
+                        }
+                    },
+                    "403": {
+                        "description": "USER_HAS_NO_PERMISSION"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            },
+            "delete": {
+                "tags": [
+                    "Tasks Types"
+                ],
+                "description": "Delete task type",
+                "operationId": "App\\Http\\Controllers\\TaskTypeController::destroy",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Task id",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        },
+                        "example": 1
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Task successfully deleted"
+                    },
+                    "403": {
+                        "description": "USER_HAS_NO_PERMISSION"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/users": {
+            "get": {
+                "tags": [
+                    "Users"
+                ],
+                "description": "Get users list",
+                "operationId": "App\\Http\\Controllers\\UserController::index",
+                "parameters": [
+                    {
+                        "name": "limit",
+                        "in": "query",
+                        "required": false,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    },
+                    {
+                        "name": "offset",
+                        "in": "query",
+                        "required": false,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Return users list",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/UserResource"
+                                }
+                            }
+                        }
+                    },
+                    "403": {
+                        "description": "USER_HAS_NO_PERMISSION"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        }
+    },
+    "components": {
+        "schemas": {
+            "CaseFileRequest": {
+                "title": "CaseFile request",
+                "description": "CaseFile request body data",
+                "required": [
+                    "name"
+                ],
+                "properties": {
+                    "Name": {
+                        "schema": "CaseFileRequest",
+                        "type": "string",
+                        "example": "BG1_Анкер_с проушиной.rfa"
+                    },
+                    "Hash": {
+                        "schema": "CaseFileRequest",
+                        "type": "string",
+                        "example": "C6EB405CF7D2659DA2F6011B8AD04CB90F8F49A4E39E711DC60A35A2820BEC61"
+                    },
+                    "HashAfter": {
+                        "schema": "CaseFileRequest",
+                        "type": "string",
+                        "example": "C6EB405CF7D2659DA2F6011B8AD04CB90F8F49A4E39E711DC60A35A2820BEC61"
+                    },
+                    "CaseItemTypeId": {
+                        "schema": "CaseFileRequest",
+                        "type": "integer",
+                        "example": 1
+                    },
+                    "MetaData": {
+                        "schema": "CaseFileRequest",
+                        "type": "string"
+                    }
+                },
+                "type": "object"
+            },
+            "CaseInitRequest": {
+                "title": "Case Init request",
+                "description": "Case init request body data",
+                "required": [
+                    "name, category_id, section_id"
+                ],
+                "properties": {
+                    "name": {
+                        "schema": "CaseInitRequest",
+                        "type": "string",
+                        "example": "(Dr)_ Door78_Дверь Двустворчатая_Внутренняя_ГОСТ 31173"
+                    },
+                    "category_id": {
+                        "schema": "CaseInitRequest",
+                        "type": "integer",
+                        "example": 1
+                    },
+                    "section_id": {
+                        "schema": "CaseInitRequest",
+                        "type": "integer",
+                        "example": 1
+                    }
+                },
+                "type": "object"
+            },
+            "CaseRequest": {
+                "title": "Case request",
+                "description": "Case request body data",
+                "required": [
+                    "name"
+                ],
+                "properties": {
+                    "CaseName": {
+                        "schema": "CaseRequest",
+                        "type": "string",
+                        "example": "(Dr)_ Door78_Дверь Двустворчатая_Внутренняя_ГОСТ 31173"
+                    },
+                    "CaseHashAfter": {
+                        "schema": "CaseRequest",
+                        "type": "string",
+                        "example": "a35bc872-1910-11eb-950d-00155d34d6e2"
+                    },
+                    "CaseHashBefore": {
+                        "schema": "CaseRequest",
+                        "type": "string",
+                        "example": "a35bc872-1910-11eb-950d-00155d34d6e2"
+                    },
+                    "CategoryID": {
+                        "schema": "CaseRequest",
+                        "type": "integer",
+                        "example": 9
+                    },
+                    "SectionID": {
+                        "schema": "CaseRequest",
+                        "type": "integer",
+                        "example": 1
+                    },
+                    "Files": {
+                        "schema": "CaseRequest",
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/CaseFileRequest"
+                        }
+                    }
+                },
+                "type": "object"
+            },
+            "CaseUpdateRequest": {
+                "title": "Case update request",
+                "description": "Case update request body data",
+                "required": [
+                    "name, section_id, category_id"
+                ],
+                "properties": {
+                    "name": {
+                        "schema": "CaseUpdateRequest",
+                        "type": "string"
+                    },
+                    "section_id": {
+                        "schema": "CaseUpdateRequest",
+                        "type": "integer"
+                    },
+                    "category_id": {
+                        "schema": "CaseUpdateRequest",
+                        "type": "integer"
+                    }
+                },
+                "type": "object"
+            },
+            "CaseVersionRequest": {
+                "title": "Case version request",
+                "description": "Case version request body data",
+                "required": [
+                    "case_hash, version"
+                ],
+                "properties": {
+                    "case_hash": {
+                        "schema": "CaseVersionRequest",
+                        "type": "string"
+                    },
+                    "version": {
+                        "schema": "CaseVersionRequest",
+                        "type": "string"
+                    }
+                },
+                "type": "object"
+            },
+            "CaseVersionStatusRequest": {
+                "title": "Case version status request",
+                "description": "Case version status request body data",
+                "required": [
+                    "is_active"
+                ],
+                "properties": {
+                    "is_active": {
+                        "schema": "CaseVersionStatusRequest",
+                        "type": "boolean"
+                    },
+                    "case_id": {
+                        "schema": "CaseVersionStatusRequest",
+                        "type": "integer"
+                    }
+                },
+                "type": "object"
+            },
+            "CatalogLinkRequest": {
+                "title": "CatalogLinkRequest",
+                "description": "CatalogLink Request body data",
+                "required": [
+                    "section_id",
+                    "category_id"
+                ],
+                "properties": {
+                    "section_id": {
+                        "schema": "CatalogLinkRequest",
+                        "type": "integer"
+                    },
+                    "category_id": {
+                        "schema": "CatalogLinkRequest",
+                        "type": "integer"
+                    }
+                },
+                "type": "object"
+            },
+            "CategoryRequest": {
+                "title": "Category request",
+                "description": "Category request body data",
+                "required": [
+                    "full_name",
+                    "name",
+                    "services"
+                ],
+                "properties": {
+                    "section_ids": {
+                        "schema": "CategoryRequest",
+                        "type": "array",
+                        "items": {
+                            "type": "integer"
+                        }
+                    },
+                    "full_name": {
+                        "schema": "CategoryRequest",
+                        "type": "string",
+                        "example": "Алюминиевые ограждения"
+                    },
+                    "name": {
+                        "schema": "CategoryRequest",
+                        "type": "string",
+                        "example": "Алюминиевые ограждения"
+                    },
+                    "parent_id": {
+                        "schema": "CategoryRequest",
+                        "type": "integer",
+                        "example": null
+                    },
+                    "creator_id": {
+                        "schema": "CategoryRequest",
+                        "type": "integer",
+                        "example": null
+                    },
+                    "version": {
+                        "schema": "CategoryRequest",
+                        "type": "integer",
+                        "example": 2
+                    },
+                    "_ltr": {
+                        "schema": "CategoryRequest",
+                        "type": "integer",
+                        "default": 0,
+                        "example": 3
+                    },
+                    "_rgt": {
+                        "schema": "CategoryRequest",
+                        "type": "integer",
+                        "default": 0,
+                        "example": 2
+                    },
+                    "system": {
+                        "schema": "CategoryRequest",
+                        "type": "string",
+                        "example": null
+                    },
+                    "number": {
+                        "schema": "CategoryRequest",
+                        "type": "string",
+                        "example": null
+                    },
+                    "key": {
+                        "schema": "CategoryRequest",
+                        "type": "string",
+                        "example": null
+                    }
+                },
+                "type": "object"
+            },
+            "FamilyCompositionRequest": {
+                "title": "Family composition request",
+                "description": "Family composition request body data",
+                "required": [
+                    "item_name",
+                    "extension",
+                    "template",
+                    "required"
+                ],
+                "properties": {
+                    "item_name": {
+                        "schema": "FamilyCompositionRequest",
+                        "type": "string",
+                        "example": "Разработанное семейство в формате *.rfa."
+                    },
+                    "description": {
+                        "schema": "FamilyCompositionRequest",
+                        "type": "string",
+                        "example": "Подробное описание единицы состава семейства"
+                    },
+                    "extension": {
+                        "schema": "FamilyCompositionRequest",
+                        "type": "string",
+                        "example": "rfa"
+                    },
+                    "template": {
+                        "schema": "FamilyCompositionRequest",
+                        "type": "string",
+                        "example": ".rfa"
+                    },
+                    "required": {
+                        "schema": "FamilyCompositionRequest",
+                        "type": "boolean",
+                        "example": true
+                    }
+                },
+                "type": "object"
+            },
+            "FamilyRequest": {
+                "title": "Family request",
+                "description": "Family request body data",
+                "required": [
+                    "family_name",
+                    "guid",
+                    "version"
+                ],
+                "properties": {
+                    "family_name": {
+                        "schema": "FamilyRequest",
+                        "type": "string",
+                        "example": "M_Supply Diffuser"
+                    },
+                    "guid": {
+                        "schema": "FamilyRequest",
+                        "type": "string",
+                        "example": "00000000-0000-0000-0000-000000000000"
+                    },
+                    "version": {
+                        "schema": "FamilyRequest",
+                        "type": "integer",
+                        "example": 1
+                    }
+                },
+                "type": "object"
+            },
+            "FileCaseRequest": {
+                "title": "File request",
+                "description": "File request body data",
+                "required": [
+                    "file"
+                ],
+                "properties": {
+                    "file": {
+                        "schema": "FileCaseRequest",
+                        "type": "file"
+                    },
+                    "case_hash": {
+                        "schema": "FileCaseRequest",
+                        "type": "string"
+                    }
+                },
+                "type": "object"
+            },
+            "FileGetRequest": {
+                "title": "File get request",
+                "description": "File data",
+                "required": [
+                    "hash"
+                ],
+                "properties": {
+                    "hash": {
+                        "schema": "FileGetRequest",
+                        "type": "string"
+                    }
+                },
+                "type": "object"
+            },
+            "FileRequest": {
+                "title": "File request",
+                "description": "File request body data",
+                "required": [
+                    "file"
+                ],
+                "properties": {
+                    "file": {
+                        "schema": "FileRequest",
+                        "type": "file"
+                    }
+                },
+                "type": "object"
+            },
+            "RegDataRequest": {
+                "title": "RegData request",
+                "description": "RegData request body data",
+                "required": [
+                    "name"
+                ],
+                "properties": {
+                    "RegNumber": {
+                        "schema": "RegDataRequest",
+                        "type": "string",
+                        "example": "e8490d90-b4b0-4295-9a6e-807c88711446"
+                    },
+                    "Version": {
+                        "schema": "RegDataRequest",
+                        "type": "integer",
+                        "example": 1
+                    }
+                },
+                "type": "object"
+            },
+            "ReportInitRequest": {
+                "title": "ReportInit request",
+                "description": "ReportInit request body data",
+                "required": [
+                    "name"
+                ],
+                "properties": {
+                    "project": {
+                        "schema": "ReportInitRequest",
+                        "type": "string",
+                        "example": "RME_basic_sample_project"
+                    },
+                    "families": {
+                        "schema": "ReportInitRequest",
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/FamilyRequest"
+                        }
+                    }
+                },
+                "type": "object"
+            },
+            "ReportSearchRequest": {
+                "title": "ReportSearch Resource",
+                "properties": {
+                    "search": {
+                        "schema": "ReportSearchRequest",
+                        "description": "Class ReportSearchRequest",
+                        "type": "string"
+                    },
+                    "status_id": {
+                        "schema": "ReportSearchRequest",
+                        "description": "Class ReportSearchRequest",
+                        "type": "integer"
+                    },
+                    "date_created_from": {
+                        "schema": "ReportSearchRequest",
+                        "description": "Class ReportSearchRequest",
+                        "type": "string"
+                    },
+                    "date_created_to": {
+                        "schema": "ReportSearchRequest",
+                        "description": "Class ReportSearchRequest",
+                        "type": "string"
+                    },
+                    "user_hash": {
+                        "schema": "ReportSearchRequest",
+                        "description": "Class ReportSearchRequest",
+                        "type": "string"
+                    },
+                    "order_by": {
+                        "schema": "ReportSearchRequest",
+                        "description": "Class ReportSearchRequest",
+                        "type": "string"
+                    },
+                    "direction": {
+                        "schema": "ReportSearchRequest",
+                        "description": "Class ReportSearchRequest",
+                        "type": "string"
+                    },
+                    "limit": {
+                        "schema": "ReportSearchRequest",
+                        "description": "Class ReportSearchRequest",
+                        "type": "integer"
+                    },
+                    "offset": {
+                        "schema": "ReportSearchRequest",
+                        "description": "Class ReportSearchRequest",
+                        "type": "integer"
+                    }
+                },
+                "type": "object"
+            },
+            "SectionRequest": {
+                "title": "Section request",
+                "description": "Section request body data",
+                "required": [
+                    "name",
+                    "short_name",
+                    "order"
+                ],
+                "properties": {
+                    "name": {
+                        "schema": "SectionRequest",
+                        "type": "string",
+                        "example": "Фасады"
+                    },
+                    "short_name": {
+                        "schema": "SectionRequest",
+                        "type": "string",
+                        "example": "ФС"
+                    },
+                    "order": {
+                        "schema": "SectionRequest",
+                        "type": "integer",
+                        "example": 4
+                    },
+                    "parent_id": {
+                        "schema": "SectionRequest",
+                        "type": "integer",
+                        "example": null
+                    },
+                    "creator_id": {
+                        "schema": "SectionRequest",
+                        "type": "integer",
+                        "example": null
+                    }
+                },
+                "type": "object"
+            },
+            "TaskRequest": {
+                "title": "Task request",
+                "description": "Task request body data",
+                "required": [
+                    "title",
+                    "content"
+                ],
+                "properties": {
+                    "title": {
+                        "schema": "TaskRequest",
+                        "type": "string",
+                        "example": "Заголовок"
+                    },
+                    "content": {
+                        "schema": "TaskRequest",
+                        "type": "string",
+                        "example": "Содержимое заявки/задачи. Текст большого объёма."
+                    }
+                },
+                "type": "object"
+            },
+            "TaskTypeRequest": {
+                "title": "Task Type request",
+                "description": "Task Type request body data",
+                "required": [
+                    "key",
+                    "title",
+                    "description"
+                ],
+                "properties": {
+                    "key": {
+                        "schema": "TaskTypeRequest",
+                        "description": "Class TaskTypeRequest",
+                        "type": "string",
+                        "example": "change_request"
+                    },
+                    "title": {
+                        "schema": "TaskTypeRequest",
+                        "description": "Class TaskTypeRequest",
+                        "type": "string",
+                        "example": "Заявна на изменение"
+                    },
+                    "description": {
+                        "schema": "TaskTypeRequest",
+                        "description": "Class TaskTypeRequest",
+                        "type": "string",
+                        "example": "Используется для запроса на внесение ихменений в каталог"
+                    }
+                },
+                "type": "object"
+            },
+            "TaskUpdateRequest": {
+                "title": "Task update request",
+                "description": "Task request body data",
+                "required": [
+                    "title",
+                    "content"
+                ],
+                "properties": {
+                    "title": {
+                        "schema": "TaskUpdateRequest",
+                        "type": "string",
+                        "example": "Заголовок"
+                    },
+                    "content": {
+                        "schema": "TaskUpdateRequest",
+                        "type": "string",
+                        "example": "Содержимое заявки/задачи. Текст большого объёма."
+                    }
+                },
+                "type": "object"
+            },
+            "UserSearchRequest": {
+                "title": "User search request",
+                "description": "User request body data",
+                "properties": {
+                    "limit": {
+                        "schema": "UserSearchRequest",
+                        "type": "integer"
+                    },
+                    "offset": {
+                        "schema": "UserSearchRequest",
+                        "type": "integer"
+                    }
+                },
+                "type": "object"
+            },
+            "CaseCheckResource": {
+                "title": "Case Resource",
+                "description": "Case resource",
+                "properties": {
+                    "id": {
+                        "schema": "CaseCheckResource",
+                        "description": "Class CaseCheckResource",
+                        "type": "integer"
+                    },
+                    "name": {
+                        "schema": "CaseCheckResource",
+                        "description": "Class CaseCheckResource",
+                        "type": "string"
+                    },
+                    "guid": {
+                        "schema": "CaseCheckResource",
+                        "description": "Class CaseCheckResource",
+                        "type": "string"
+                    },
+                    "creator_id": {
+                        "schema": "CaseCheckResource",
+                        "description": "Class CaseCheckResource",
+                        "type": "integer"
+                    },
+                    "category_id": {
+                        "schema": "CaseCheckResource",
+                        "description": "Class CaseCheckResource",
+                        "type": "integer"
+                    },
+                    "status": {
+                        "schema": "CaseCheckResource",
+                        "description": "Class CaseCheckResource",
+                        "type": "integer"
+                    }
+                },
+                "type": "object"
+            },
+            "CaseFileCheckResource": {
+                "title": "CaseFile Resource",
+                "description": "CaseFile resource",
+                "properties": {
+                    "id": {
+                        "schema": "CaseFileCheckResource",
+                        "description": "Class CaseFileCheckResource",
+                        "type": "integer"
+                    },
+                    "name": {
+                        "schema": "CaseFileCheckResource",
+                        "description": "Class CaseFileCheckResource",
+                        "type": "string"
+                    },
+                    "guid": {
+                        "schema": "CaseFileCheckResource",
+                        "description": "Class CaseFileCheckResource",
+                        "type": "string"
+                    },
+                    "creator_id": {
+                        "schema": "CaseFileCheckResource",
+                        "description": "Class CaseFileCheckResource",
+                        "type": "integer"
+                    },
+                    "category_id": {
+                        "schema": "CaseFileCheckResource",
+                        "description": "Class CaseFileCheckResource",
+                        "type": "integer"
+                    },
+                    "status": {
+                        "schema": "CaseFileCheckResource",
+                        "description": "Class CaseFileCheckResource",
+                        "type": "integer"
+                    }
+                },
+                "type": "object"
+            },
+            "CaseFileResource": {
+                "title": "CaseFile Resource",
+                "description": "CaseFile resource",
+                "properties": {
+                    "id": {
+                        "schema": "CaseFileResource",
+                        "description": "Class CaseFile",
+                        "type": "integer"
+                    },
+                    "name": {
+                        "schema": "CaseFileResource",
+                        "description": "Class CaseFile",
+                        "type": "string"
+                    },
+                    "guid": {
+                        "schema": "CaseFileResource",
+                        "description": "Class CaseFile",
+                        "type": "string"
+                    },
+                    "creator_id": {
+                        "schema": "CaseFileResource",
+                        "description": "Class CaseFile",
+                        "type": "integer"
+                    },
+                    "category_id": {
+                        "schema": "CaseFileResource",
+                        "description": "Class CaseFile",
+                        "type": "integer"
+                    },
+                    "status": {
+                        "schema": "CaseFileResource",
+                        "description": "Class CaseFile",
+                        "type": "integer"
+                    }
+                },
+                "type": "object"
+            },
+            "CaseResource": {
+                "title": "Case Resource",
+                "description": "Case resource",
+                "properties": {
+                    "id": {
+                        "schema": "CaseResource",
+                        "description": "Class CaseResource",
+                        "type": "integer"
+                    },
+                    "name": {
+                        "schema": "CaseResource",
+                        "description": "Class CaseResource",
+                        "type": "string"
+                    },
+                    "guid": {
+                        "schema": "CaseResource",
+                        "description": "Class CaseResource",
+                        "type": "string"
+                    },
+                    "creator_id": {
+                        "schema": "CaseResource",
+                        "description": "Class CaseResource",
+                        "type": "integer"
+                    },
+                    "category_id": {
+                        "schema": "CaseResource",
+                        "description": "Class CaseResource",
+                        "type": "integer"
+                    },
+                    "status": {
+                        "schema": "CaseResource",
+                        "description": "Class CaseResource",
+                        "type": "integer"
+                    }
+                },
+                "type": "object"
+            },
+            "CaseSearchResource": {
+                "title": "CaseSearch Resource",
+                "description": "CaseSearch resource",
+                "properties": {
+                    "id": {
+                        "schema": "CaseSearchResource",
+                        "description": "Class CaseSearchResource",
+                        "type": "integer"
+                    },
+                    "title": {
+                        "schema": "CaseSearchResource",
+                        "description": "Class CaseSearchResource",
+                        "type": "string"
+                    },
+                    "created_at": {
+                        "schema": "CaseSearchResource",
+                        "description": "Class CaseSearchResource",
+                        "type": "string"
+                    },
+                    "updated_at": {
+                        "schema": "CaseSearchResource",
+                        "description": "Class CaseSearchResource",
+                        "type": "string"
+                    },
+                    "deleted_at": {
+                        "schema": "CaseSearchResource",
+                        "description": "Class CaseSearchResource",
+                        "type": "string"
+                    },
+                    "version": {
+                        "schema": "CaseSearchResource",
+                        "description": "Class CaseSearchResource",
+                        "type": "string"
+                    },
+                    "hash": {
+                        "schema": "CaseSearchResource",
+                        "description": "Class CaseSearchResource",
+                        "type": "string"
+                    },
+                    "file_size": {
+                        "schema": "CaseSearchResource",
+                        "description": "Class CaseSearchResource",
+                        "type": "string"
+                    },
+                    "category_revit": {
+                        "schema": "CaseSearchResource",
+                        "description": "Class CaseSearchResource",
+                        "type": "string"
+                    },
+                    "family_placement": {
+                        "schema": "CaseSearchResource",
+                        "description": "Class CaseSearchResource",
+                        "type": "string"
+                    },
+                    "shared_parameters": {
+                        "schema": "CaseSearchResource",
+                        "description": "Class CaseSearchResource",
+                        "type": "string"
+                    },
+                    "type_collection": {
+                        "schema": "CaseSearchResource",
+                        "description": "Class CaseSearchResource",
+                        "type": "array",
+                        "items": {
+                            "type": "string"
+                        }
+                    },
+                    "family_template": {
+                        "schema": "CaseSearchResource",
+                        "description": "Class CaseSearchResource",
+                        "type": "string"
+                    },
+                    "system_parameters": {
+                        "schema": "CaseSearchResource",
+                        "description": "Class CaseSearchResource",
+                        "type": "string"
+                    },
+                    "count_subfamily": {
+                        "schema": "CaseSearchResource",
+                        "description": "Class CaseSearchResource",
+                        "type": "string"
+                    },
+                    "count_connector": {
+                        "schema": "CaseSearchResource",
+                        "description": "Class CaseSearchResource",
+                        "type": "string"
+                    },
+                    "author": {
+                        "$ref": "#/components/schemas/UserResource"
+                    },
+                    "category": {
+                        "$ref": "#/components/schemas/CategoryResource"
+                    },
+                    "section": {
+                        "$ref": "#/components/schemas/SectionResource"
+                    },
+                    "Files": {
+                        "schema": "CaseSearchResource",
+                        "description": "Class CaseSearchResource",
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/CaseFileRequest"
+                        }
+                    }
+                },
+                "type": "object"
+            },
+            "CaseVersionResource": {
+                "title": "CaseVersionSearchResource Resource",
+                "description": "CaseFile resource",
+                "properties": {
+                    "name": {
+                        "schema": "CaseVersionResource",
+                        "description": "Class CaseVersionResource",
+                        "type": "string"
+                    },
+                    "hash": {
+                        "schema": "CaseVersionResource",
+                        "description": "Class CaseVersionResource",
+                        "type": "string"
+                    },
+                    "type_id": {
+                        "schema": "CaseVersionResource",
+                        "description": "Class CaseVersionResource",
+                        "type": "integer"
+                    },
+                    "version": {
+                        "schema": "CaseVersionResource",
+                        "description": "Class CaseVersionResource",
+                        "type": "string"
+                    }
+                },
+                "type": "object"
+            },
+            "CaseVersionSearchResource": {
+                "title": "CaseVersionSearchResource Resource",
+                "properties": {
+                    "name": {
+                        "schema": "CaseVersionSearchResource",
+                        "description": "Class CaseVersionSearchResource",
+                        "type": "string"
+                    },
+                    "hash": {
+                        "schema": "CaseVersionSearchResource",
+                        "description": "Class CaseVersionSearchResource",
+                        "type": "string"
+                    },
+                    "type_id": {
+                        "schema": "CaseVersionSearchResource",
+                        "description": "Class CaseVersionSearchResource",
+                        "type": "integer"
+                    },
+                    "version": {
+                        "schema": "CaseVersionSearchResource",
+                        "description": "Class CaseVersionSearchResource",
+                        "type": "string"
+                    },
+                    "is_active": {
+                        "schema": "CaseVersionSearchResource",
+                        "description": "Class CaseVersionSearchResource",
+                        "type": "boolean"
+                    }
+                },
+                "type": "object"
+            },
+            "CategoryResource": {
+                "title": "CategoryResource",
+                "description": "Category resource",
+                "properties": {
+                    "id": {
+                        "schema": "CategoryResource",
+                        "description": "Class CategoryResource",
+                        "type": "integer"
+                    },
+                    "full_name": {
+                        "schema": "CategoryResource",
+                        "description": "Class CategoryResource",
+                        "type": "string"
+                    },
+                    "name": {
+                        "schema": "CategoryResource",
+                        "description": "Class CategoryResource",
+                        "type": "string"
+                    },
+                    "system": {
+                        "schema": "CategoryResource",
+                        "description": "Class CategoryResource",
+                        "type": "string"
+                    },
+                    "number": {
+                        "schema": "CategoryResource",
+                        "description": "Class CategoryResource",
+                        "type": "integer"
+                    },
+                    "creator_id": {
+                        "schema": "CategoryResource",
+                        "description": "Class CategoryResource",
+                        "type": "integer"
+                    }
+                },
+                "type": "object"
+            },
+            "FamilyCompositionResource": {
+                "title": "FamilyComposition",
+                "description": "Family composition",
+                "properties": {
+                    "id": {
+                        "schema": "FamilyCompositionResource",
+                        "type": "integer"
+                    },
+                    "description": {
+                        "schema": "FamilyCompositionResource",
+                        "type": "string"
+                    },
+                    "extension": {
+                        "schema": "FamilyCompositionResource",
+                        "type": "string"
+                    },
+                    "template": {
+                        "schema": "FamilyCompositionResource",
+                        "type": "string"
+                    },
+                    "required": {
+                        "schema": "FamilyCompositionResource",
+                        "type": "boolean"
+                    }
+                },
+                "type": "object"
+            },
+            "FileResource": {
+                "title": "File Resource",
+                "description": "File Resource",
+                "properties": {
+                    "name": {
+                        "schema": "FileResource",
+                        "description": "Class FileResource",
+                        "type": "string"
+                    },
+                    "extension": {
+                        "schema": "FileResource",
+                        "description": "Class FileResource",
+                        "type": "string"
+                    },
+                    "original_name": {
+                        "schema": "FileResource",
+                        "description": "Class FileResource",
+                        "type": "string"
+                    },
+                    "mime_type": {
+                        "schema": "FileResource",
+                        "description": "Class FileResource",
+                        "type": "string"
+                    },
+                    "path": {
+                        "schema": "FileResource",
+                        "description": "Class FileResource",
+                        "type": "string"
+                    }
+                },
+                "type": "object"
+            },
+            "RegDataResource": {
+                "title": "RegData Resource",
+                "description": "RegData Resource",
+                "properties": {
+                    "id": {
+                        "schema": "RegDataResource",
+                        "description": "Class RegDataResource",
+                        "type": "integer"
+                    },
+                    "name": {
+                        "schema": "RegDataResource",
+                        "description": "Class RegDataResource",
+                        "type": "string"
+                    }
+                },
+                "type": "object"
+            },
+            "ReportFamilyResource": {
+                "title": "ReportFamily Resource",
+                "properties": {
+                    "family_name": {
+                        "schema": "ReportFamilyResource",
+                        "description": "Class ReportFamilyResource",
+                        "type": "string"
+                    },
+                    "guid": {
+                        "schema": "ReportFamilyResource",
+                        "description": "Class ReportFamilyResource",
+                        "type": "string"
+                    },
+                    "version": {
+                        "schema": "ReportFamilyResource",
+                        "description": "Class ReportFamilyResource",
+                        "type": "integer"
+                    },
+                    "current_version": {
+                        "schema": "ReportFamilyResource",
+                        "description": "Class ReportFamilyResource",
+                        "type": "integer"
+                    },
+                    "report_id": {
+                        "schema": "ReportFamilyResource",
+                        "description": "Class ReportFamilyResource",
+                        "type": "integer"
+                    },
+                    "status": {
+                        "schema": "ReportFamilyResource",
+                        "description": "Class ReportFamilyResource",
+                        "type": "integer"
+                    },
+                    "url": {
+                        "schema": "ReportFamilyResource",
+                        "description": "Class ReportFamilyResource",
+                        "type": "string"
+                    }
+                },
+                "type": "object"
+            },
+            "ReportResource": {
+                "title": "Report Resource",
+                "properties": {
+                    "id": {
+                        "schema": "ReportResource",
+                        "description": "Class ReportResource",
+                        "type": "integer"
+                    },
+                    "project": {
+                        "schema": "ReportResource",
+                        "description": "Class ReportResource",
+                        "type": "string"
+                    },
+                    "report": {
+                        "schema": "ReportResource",
+                        "description": "Class ReportResource",
+                        "type": "string"
+                    },
+                    "families_count": {
+                        "schema": "ReportResource",
+                        "description": "Class ReportResource",
+                        "type": "integer"
+                    },
+                    "family_errors": {
+                        "schema": "ReportResource",
+                        "description": "Class ReportResource",
+                        "type": "integer"
+                    },
+                    "families": {
+                        "schema": "ReportResource",
+                        "description": "Class ReportResource",
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/ReportFamilyResource"
+                        }
+                    }
+                },
+                "type": "object"
+            },
+            "SectionCategoryResource": {
+                "title": "SectionCategoryResource",
+                "description": "SectionCategory resource",
+                "properties": {
+                    "id": {
+                        "schema": "SectionCategoryResource",
+                        "description": "Class SectionCategoryResource",
+                        "type": "integer"
+                    }
+                },
+                "type": "object"
+            },
+            "SectionResource": {
+                "title": "SectionResource",
+                "description": "Section resource",
+                "properties": {
+                    "id": {
+                        "schema": "SectionResource",
+                        "description": "Class SectionResource",
+                        "type": "integer"
+                    },
+                    "name": {
+                        "schema": "SectionResource",
+                        "description": "Class SectionResource",
+                        "type": "string"
+                    },
+                    "short_name": {
+                        "schema": "SectionResource",
+                        "description": "Class SectionResource",
+                        "type": "string"
+                    },
+                    "order": {
+                        "schema": "SectionResource",
+                        "description": "Class SectionResource",
+                        "type": "integer"
+                    },
+                    "parent_id": {
+                        "schema": "SectionResource",
+                        "description": "Class SectionResource",
+                        "type": "integer"
+                    },
+                    "creator_id": {
+                        "schema": "SectionResource",
+                        "description": "Class SectionResource",
+                        "type": "integer"
+                    }
+                },
+                "type": "object"
+            },
+            "TaskResource": {
+                "title": "TaskResource",
+                "description": "Task resource",
+                "properties": {
+                    "id": {
+                        "schema": "TaskResource",
+                        "type": "integer"
+                    },
+                    "status_id": {
+                        "schema": "TaskResource",
+                        "type": "integer"
+                    },
+                    "title": {
+                        "schema": "TaskResource",
+                        "type": "string"
+                    },
+                    "content": {
+                        "schema": "TaskResource",
+                        "type": "string"
+                    },
+                    "author": {
+                        "$ref": "#/components/schemas/UserResource"
+                    },
+                    "created_at": {
+                        "schema": "TaskResource",
+                        "type": "string"
+                    },
+                    "updated_at": {
+                        "schema": "TaskResource",
+                        "type": "string"
+                    },
+                    "deleted_at": {
+                        "schema": "TaskResource",
+                        "type": "string"
+                    },
+                    "executor": {
+                        "$ref": "#/components/schemas/UserResource"
+                    },
+                    "comment": {
+                        "schema": "TaskResource",
+                        "type": "string"
+                    }
+                },
+                "type": "object"
+            },
+            "TaskTypeResource": {
+                "title": "TaskTypeResource",
+                "description": "Task Type resource",
+                "properties": {
+                    "key": {
+                        "schema": "TaskTypeResource",
+                        "description": "Class TaskTypeResource",
+                        "type": "string",
+                        "example": "change_request"
+                    },
+                    "title": {
+                        "schema": "TaskTypeResource",
+                        "description": "Class TaskTypeResource",
+                        "type": "string",
+                        "example": "Заявна на изменение"
+                    },
+                    "description": {
+                        "schema": "TaskTypeResource",
+                        "description": "Class TaskTypeResource",
+                        "type": "string",
+                        "example": "Используется для запроса на внесение ихменений в каталог"
+                    }
+                },
+                "type": "object"
+            },
+            "UserResource": {
+                "title": "UserResource",
+                "description": "User resource",
+                "properties": {
+                    "user_hash": {
+                        "schema": "UserResource",
+                        "type": "string"
+                    },
+                    "firstName": {
+                        "schema": "UserResource",
+                        "type": "string"
+                    },
+                    "lastName": {
+                        "schema": "UserResource",
+                        "type": "string"
+                    }
+                },
+                "type": "object"
+            }
+        },
+        "securitySchemes": {
+            "bearerAuth": {
+                "type": "http",
+                "name": "bearerAuth",
+                "in": "header",
+                "bearerFormat": "JWT",
+                "scheme": "bearer"
+            }
+        }
+    },
+    "tags": [
+        {
+            "name": "Cases",
+            "description": "Case endpoints"
+        },
+        {
+            "name": "CaseVersions",
+            "description": "Case version endpoints"
+        },
+        {
+            "name": "Catalog",
+            "description": "Catalog relations"
+        },
+        {
+            "name": "Categories",
+            "description": "Catalog categories"
+        },
+        {
+            "name": "Family Compositions",
+            "description": "Family compositions Dict"
+        },
+        {
+            "name": "Files",
+            "description": "File endpoints"
+        },
+        {
+            "name": "Reports",
+            "description": "Reports apis"
+        },
+        {
+            "name": "Sections",
+            "description": "Catalog sections"
+        },
+        {
+            "name": "Tasks",
+            "description": "Tasks"
+        },
+        {
+            "name": "Tasks Types",
+            "description": "Task's types"
+        },
+        {
+            "name": "Users",
+            "description": "User endpoints"
+        }
+    ],
+    "security": [
+        []
+    ]
+}
